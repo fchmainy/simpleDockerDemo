@@ -1,0 +1,19 @@
+- name: get container port
+  shell: "docker inspect --format '{''{(index (index .NetworkSettings.Ports \"8080/tcp\") 0).HostPort}''}' my_{{ flavor }}_server_{{ item }}"
+  register: docker_container_port
+
+- name: add pool member
+  bigip_pool_member:
+    server: "{{ variables.bigip_address }}"
+    user: "{{ variables.username }}"
+    password: "{{ variables.password }}"
+    state: "present"
+    pool: "my_{{ flavor }}_webserver_pool"
+    partition: "{{ variables.partition }}"
+    host: "{{ variables.node_address }}"
+    port: "{{ docker_container_port.stdout }}"
+    description: "web server"
+    connection_limit: 100
+    rate_limit: 50
+    ratio: 2
+    validate_certs: false

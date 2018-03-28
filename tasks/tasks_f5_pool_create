@@ -1,0 +1,14 @@
+- name: Create pool
+  bigip_pool:
+    server: "{{ variables.bigip_address }}"
+    user: "{{ variables.username }}"
+    password: "{{ variables.password }}"
+    state: "present"
+    name: "my_{{ flavor }}_webserver_pool"
+    partition: "{{ variables.partition }}"
+    monitor_type: and_list
+    monitors:
+      - tcp
+    lb_method: "least-connections-member"
+    slow_ramp_time: 120
+    validate_certs: false

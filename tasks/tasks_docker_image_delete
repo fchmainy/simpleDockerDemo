@@ -1,0 +1,3 @@
+- name: remove nodejs custom image
+  command: docker image rm my_{{flavor}}_nodejs
+

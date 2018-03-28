@@ -1,0 +1,2 @@
+- name: build nodejs custom image
+  command: docker build -t my_{{flavor}}_nodejs "docker_nodejs_files" --build-arg FILE_PATH="{{ flavor }}"

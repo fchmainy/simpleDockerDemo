@@ -1,0 +1,23 @@
+---
+- name: manage backend configuration
+  become: true
+  hosts: localhost
+  tasks:
+    - name: get variables
+      include_vars:
+        file: _variables.yml
+        name: variables
+
+    - name: create docker image
+      include: tasks/tasks_docker_image_build
+
+    - name: create and start container
+      include: tasks/tasks_docker_container_start
+      with_sequence: count="{{ number }}"
+
+    - name: create pool
+      include: tasks/tasks_f5_pool_create
+
+    - name: create pool
+      include: tasks/tasks_f5_poolmember_add
+      with_sequence: count="{{ number }}"

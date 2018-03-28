@@ -1,0 +1,9 @@
+- name: Delete pool
+  bigip_pool:
+    server: "{{ variables.bigip_address }}"
+    user: "{{ variables.username }}"
+    password: "{{ variables.password }}"
+    state: "absent"
+    name: "my_{{ flavor }}_webserver_pool"
+    partition: "{{ variables.partition }}"
+    validate_certs: false

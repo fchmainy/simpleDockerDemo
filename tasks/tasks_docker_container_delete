@@ -1,0 +1,2 @@
+- name: delete container
+  shell: "docker rm $(docker ps -q --filter label=my_{{ flavor }}_server) -f"

@@ -1,0 +1,9 @@
+- name: create container
+  docker_container:
+    name: "my_{{ flavor }}_server_{{ item }}"
+    image: my_{{ flavor }}_nodejs
+    state: "started"
+    ports:
+    - "8080"
+    labels:
+      "my_{{ flavor }}_server=OK"
